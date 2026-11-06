@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090a0f">
+<title>BLACKSITE — Website Builder</title>
+<style>
+:root{--bg:#08090e;--panel:#11131b;--panel2:#171a24;--line:#282c39;--text:#f4f5fa;--muted:#9298aa;--accent:#8b7cff;--accent2:#39d6c2;--danger:#ff657a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.app{max-width:1180px;margin:auto;min-height:100vh;padding:16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 2px 18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:1.6px}.mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#9c8cff,#42d7c3);display:grid;place-items:center;color:#08090e;font-weight:950}
+.pill{font-size:11px;color:#b9b2ff;border:1px solid #4a426e;border-radius:30px;padding:5px 9px}
+.top-actions{display:flex;gap:8px}.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 13px;border-radius:11px;font-weight:650}.btn.primary{background:var(--accent);border-color:var(--accent);color:#090912}.btn.ghost{background:transparent}.btn.small{padding:7px 9px;font-size:12px}.btn:active{transform:scale(.98)}
+.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:16px;padding-top:16px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:16px;min-width:0}
+h1{font-size:25px;line-height:1.15;margin:3px 0 8px}h2{font-size:15px;margin:0 0 12px}.muted{color:var(--muted)}.eyebrow{font-size:10px;letter-spacing:1.5px;color:var(--accent2);font-weight:800;text-transform:uppercase}
+label{display:block;font-size:12px;color:#c7cada;margin:12px 0 6px}
+input,textarea,select{width:100%;background:#0b0d14;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px;outline:none}
+textarea{min-height:94px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}.hint{font-size:11px;color:var(--muted);margin-top:7px}
+.templates{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.template{background:#0c0e15;border:1px solid var(--line);border-radius:11px;padding:10px;text-align:left;color:var(--text)}.template b{display:block;font-size:12px}.template span{display:block;color:var(--muted);font-size:10px;margin-top:3px}.template.active{border-color:var(--accent);background:#17152a}
+.section-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}.section-item{display:flex;align-items:center;gap:8px;background:#0b0d14;border:1px solid var(--line);border-radius:10px;padding:8px}.section-item.active{border-color:var(--accent)}.section-name{flex:1;min-width:0;font-size:12px;font-weight:650}.section-item button{padding:5px 7px;border-radius:7px;border:1px solid var(--line);background:#171a24;color:var(--text)}
+.preview-wrap{min-width:0}.preview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.tabs{display:flex;gap:5px;background:#0a0c12;padding:4px;border:1px solid var(--line);border-radius:11px}.tab{border:0;background:transparent;color:var(--muted);padding:7px 10px;border-radius:8px;font-size:12px}.tab.active{background:#242139;color:#fff}
+.canvas{background:#f6f5f2;color:#171923;border-radius:14px;overflow:hidden;min-height:640px;box-shadow:0 18px 60px #0007}.site{max-width:100%;margin:auto}.site-section{position:relative;padding:55px 7%;}.site-section.selected{outline:2px solid #8b7cff;outline-offset:-2px}.site-section:hover .select-tag{opacity:1}.select-tag{position:absolute;top:8px;right:10px;background:#8b7cff;color:#08090e;padding:4px 7px;border-radius:6px;font-size:10px;opacity:0;cursor:pointer}
+.hero{background:linear-gradient(135deg,#14172a,#262044);color:white;text-align:center;padding-top:78px;padding-bottom:78px}.hero h1{font-size:clamp(30px,5vw,58px);max-width:750px;margin:0 auto 14px;letter-spacing:-1.7px}.hero p{color:#d0cee0;max-width:570px;margin:0 auto 23px;font-size:15px}.site-cta{display:inline-block;background:#a99cff;color:#121020;text-decoration:none;border-radius:30px;padding:12px 20px;font-weight:750}
+.site-nav{display:flex;align-items:center;justify-content:space-between;padding:18px 7%;background:#fff;color:#171923;border-bottom:1px solid #eee}.site-nav strong{font-size:17px}.site-nav span{font-size:12px;color:#666}
+.features{background:#fff}.features h2,.about h2,.contact h2{text-align:center;font-size:27px;margin-bottom:25px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature{border:1px solid #e7e7ed;border-radius:13px;padding:18px}.feature .ico{font-size:23px}.feature h3{font-size:15px;margin:10px 0 5px}.feature p,.about p,.contact p{color:#626575;font-size:13px}
+.about{background:#f0eff7}.about-inner{max-width:700px;margin:auto;text-align:center}.contact{background:#fff;text-align:center}.contact a{color:#5a4dc2}
+.footer{background:#11131b;color:#c5c7d2;text-align:center;padding:22px;font-size:12px}
+.editor{margin-top:16px}.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.editor-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#e9e5ff;color:#171329;padding:10px 15px;border-radius:10px;font-weight:700;box-shadow:0 8px 30px #0008;display:none;z-index:10}
+.empty{padding:20px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:820px){.layout{grid-template-columns:1fr}.app{padding:12px}.panel{padding:14px}.canvas{min-height:560px}.top-actions .desktop{display:none}}
+@media(max-width:520px){.top{align-items:flex-start}.brand{font-size:13px}.top-actions .btn{padding:8px 9px;font-size:11px}.preview-head{align-items:flex-start;flex-direction:column}.site-section{padding:38px 6%}.hero{padding-top:62px;padding-bottom:62px}.cards{grid-template-columns:1fr}.editor-grid{grid-template-columns:1fr}.site-nav{padding:15px 6%}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="mark">X</div><div>BLACKSITE <span class="pill">BUILDER BETA</span></div></div>
+    <div class="top-actions">
+      <button class="btn ghost desktop" id="saveBtn">Save project</button>
+      <button class="btn primary" id="exportBtn">Export HTML ↗</button>
+    </div>
+  </header>
+  <div class="layout">
+    <aside>
+      <section class="panel">
+        <div class="eyebrow">AI website generator</div>
+        <h1>Build your<br>next website.</h1>
+        <p class="muted">अपना बिजनेस या वेबसाइट बताइए। यह शुरुआती बिल्डर आपके लिए एक editable draft बनाएगा।</p>
+        <label for="prompt">आपकी वेबसाइट किस बारे में है?</label>
+        <textarea id="prompt" placeholder="जैसे: मेरा एक प्रीमियम जूस बार है। मेन्यू, कीमतें, लोकेशन और WhatsApp संपर्क दिखाना है।"></textarea>
+        <div class="row">
+          <div><label for="siteName">ब्रांड / नाम</label><input id="siteName" value="NOVA STUDIO"></div>
+          <div><label for="siteType">कैटेगरी</label><select id="siteType"><option>Business</option><option>Portfolio</option><option>Restaurant</option><option>Online Store</option><option>Education</option><option>Real Estate</option><option>Fitness</option><option>Beauty &amp; Salon</option><option>Travel &amp; Hotel</option><option>Events</option><option>Digital Agency</option><option>NGO &amp; Charity</option><option>Blog</option><option>Landing Page</option></select></div>
+        </div>
+        <button class="btn primary" style="width:100%;margin-top:12px" id="generateBtn">✦ Generate website</button>
+        <div class="hint">Demo mode: यह लोकल टेम्पलेट जनरेटर है। असली AI API अभी कनेक्ट नहीं है।</div>
+      </section>
+      <section class="panel" style="margin-top:12px">
+        <h2>Start with a template</h2>
+        <div class="templates">
+          <button class="template active" data-template="business"><b>◈ Business</b><span>Company / service</span></button>
+          <button class="template" data-template="portfolio"><b>✳ Portfolio</b><span>Personal profile</span></button>
+          <button class="template" data-template="restaurant"><b>☕ Restaurant</b><span>Menu / contact</span></button>
+          <button class="template" data-template="store"><b>◇ Online store</b><span>Products / brand</span></button>
+<button class="template" data-template="education"><b>▤ Education</b><span>School / courses</span></button>
+<button class="template" data-template="realestate"><b>⌂ Real Estate</b><span>Property listings</span></button>
+<button class="template" data-template="fitness"><b>✦ Fitness</b><span>Gym / yoga</span></button>
+<button class="template" data-template="beauty"><b>✧ Beauty & Salon</b><span>Salon / makeup</span></button>
+<button class="template" data-template="travel"><b>✈ Travel & Hotel</b><span>Trips / stays</span></button>
+<button class="template" data-template="events"><b>◷ Events</b><span>Wedding / booking</span></button>
+<button class="template" data-template="agency"><b>↗ Digital Agency</b><span>Creative / IT services</span></button>
+<button class="template" data-template="ngo"><b>♡ NGO & Charity</b><span>Mission / donations</span></button>
+<button class="template" data-template="blog"><b>▧ Blog & News</b><span>Articles / updates</span></button>
+<button class="template" data-template="landing"><b>◈ Landing Page</b><span>Campaign / product</span></button>
+        </div>
+      </section>
+      <section class="panel" style="margin-top:12px">
+        <h2>Page sections <span class="muted" id="sectionCount"></span></h2>
+        <div class="section-list" id="sectionList"></div>
+        <div class="row" style="margin-top:10px">
+          <select id="addSectionType" aria-label="Section type"><option value="features">Features</option><option value="about">About</option><option value="contact">Contact</option><option value="hero">Hero</option></select>
+          <button class="btn small" id="addSectionBtn">+ Add</button>
+        </div>
+        <div class="hint">↑ ↓ से सेक्शन का क्रम बदलें। सेक्शन चुनकर नीचे टेक्स्ट एडिट करें।</div>
+      </section>
+    </aside>
+    <main class="preview-wrap">
+      <div class="preview-head">
+        <div><div class="eyebrow">Live canvas</div><strong>Website preview</strong></div>
+        <div class="tabs"><button class="tab active" data-view="desktop">Desktop</button><button class="tab" data-view="mobile">Mobile</button></div>
+      </div>
+      <div class="canvas" id="canvas"><div class="site" id="site"></div></div>
+      <section class="panel editor">
+        <div class="eyebrow">Section editor</div><h2 id="editorTitle">Hero section</h2>
+        <div id="editorFields"></div>
+        <div class="editor-actions">
+          <button class="btn small" id="duplicateBtn">Duplicate section</button>
+          <button class="btn small" id="deleteBtn">Delete section</button>
+          <button class="btn small" id="saveBtn2">Save project</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <p class="hint" style="text-align:center;margin:18px 0 8px">BLACKSITE Builder Beta · Drafts are stored in this browser on this device.</p>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+let sections=[],selected=0,view='desktop',template='business';
+const defaults={
+ business:[
+  {type:'nav',title:'NOVA STUDIO',body:'Home   Services   About   Contact'},
+  {type:'hero',title:'Build something remarkable.',body:'We help ambitious businesses create a stronger digital presence. Clear strategy, thoughtful design, measurable results.',cta:'Explore our services'},
+  {type:'features',title:'What we do',body:'Thoughtful solutions designed to help your business move forward.',items:[['✦','Strategy','A clear plan built around your goals.'],['◈','Design','Modern experiences people enjoy using.'],['↗','Growth','Practical tools to reach more customers.']]},
+  {type:'about',title:'A little about us',body:'We believe good work starts with understanding your needs. Our focus is simple: make your next step easier.'},
+  {type:'contact',title:'Let’s work together',body:'Tell us what you are building. We will help you take the next step.',cta:'Contact us'},
+  {type:'footer',title:'© 2026 NOVA STUDIO',body:'Made with care.'}
+ ],
+ portfolio:[
+  {type:'nav',title:'YOUR NAME',body:'Work   About   Contact'},
+  {type:'hero',title:'Designer. Creator. Problem solver.',body:'I turn ideas into useful digital experiences. Explore selected work and get in touch.',cta:'View my work'},
+  {type:'features',title:'Selected work',body:'A few things I have been working on.',items:[['01','Project One','Brand identity and digital experience.'],['02','Project Two','A clean and useful product interface.'],['03','Project Three','A website built for growth.']]},
+  {type:'about',title:'About me',body:'I enjoy solving real problems with thoughtful design, clear communication and practical technology.'},
+  {type:'contact',title:'Have a project in mind?',body:'I am available for selected projects and collaborations.',cta:'Get in touch'},
+  {type:'footer',title:'© 2026 YOUR NAME',body:'Personal portfolio.'}
+ ],
+ restaurant:[
+  {type:'nav',title:'THE JUICE BAR',body:'Menu   Our story   Find us'},
+  {type:'hero',title:'Fresh energy. Every day.',body:'Freshly prepared juices, smoothies and real ingredients. Find your new favourite blend.',cta:'See the menu'},
+  {type:'features',title:'Customer favourites',body:'Fresh picks made to order.',items:[['🍊','Citrus Splash','Orange, lemon and a refreshing finish.'],['🥭','Mango Magic','Ripe mango blended smooth.'],['🍓','Berry Boost','A bright mix of berries and goodness.']]},
+  {type:'about',title:'Fresh is our promise',body:'We prepare every order with care and focus on fresh ingredients, great taste and friendly service.'},
+  {type:'contact',title:'Visit or order',body:'Add your shop address, opening hours and WhatsApp number here.',cta:'Chat on WhatsApp'},
+  {type:'footer',title:'© 2026 THE JUICE BAR',body:'Freshly made for you.'}
+ ],
+ store:[
+  {type:'nav',title:'FORME GOODS',body:'Shop   Collections   About'},
+  {type:'hero',title:'Everyday essentials, elevated.',body:'Discover considered products made to fit your life. Simple details. Better experiences.',cta:'Shop collection'},
+  {type:'features',title:'Featured collection',body:'Explore customer favourites.',items:[['◇','Essential One','A considered everyday essential.'],['✧','Classic Two','Designed to work beautifully.'],['▣','Modern Three','A useful upgrade to your routine.']]},
+  {type:'about',title:'Designed with purpose',body:'We focus on useful products, considered details and a straightforward shopping experience.'},
+  {type:'contact',title:'Need help?',body:'Add your support email, delivery information and return policy here.',cta:'Contact support'},
+  {type:'footer',title:'© 2026 FORME GOODS',body:'All rights reserved.'}
+ ]
+};
+// Additional niche templates. These are editable starter layouts built from the core sections.
+const nicheTemplates = {
+ education: ['Learn without limits.', 'Courses, expert teachers and practical learning paths to help you reach your goals.', 'Explore courses', 'Our courses', 'Choose a learning path that fits your goals.', [['▤','Live classes','Learn with structured lessons and expert guidance.'],['✎','Study resources','Use notes, practice material and assignments.'],['◎','Student support','Get help as you work through each course.']]],
+ realestate: ['Find a place to call home.', 'Explore carefully selected homes, apartments and commercial properties.', 'View properties', 'Featured properties', 'Browse available properties and enquire for details.', [['⌂','Homes','Comfortable homes for different needs.'],['▦','Apartments','Modern apartments in useful locations.'],['⌖','Commercial','Spaces for work, retail and business.']]],
+ fitness: ['Build strength. Build consistency.', 'Training plans, coaching and support to help you move towards your fitness goals.', 'Join today', 'Our programs', 'Choose a program that works for your routine.', [['✦','Personal training','Focused coaching around your goals.'],['◈','Group classes','Train with structure and community.'],['♡','Wellness','Build sustainable healthy habits.']]],
+ beauty: ['Look good. Feel confident.', 'Professional beauty services with careful attention to every detail.', 'Book an appointment', 'Our services', 'Explore services and choose the right appointment.', [['✧','Hair styling','Cuts, styling and hair care.'],['❀','Skin care','Treatments tailored to your routine.'],['◇','Makeup','Makeup for everyday and special occasions.']]],
+ travel: ['Your next journey starts here.', 'Discover stays, experiences and trips planned around the way you like to travel.', 'Explore trips', 'Popular experiences', 'Find inspiration for your next trip.', [['✈','Tours','Explore curated local and international trips.'],['⌂','Stays','Find a comfortable place to stay.'],['◎','Experiences','Discover activities and memorable experiences.']]],
+ events: ['Make every occasion memorable.', 'Plan your next celebration with reliable event services and clear details.', 'Plan your event', 'What we organize', 'Support for events of different sizes and styles.', [['♡','Weddings','Planning and coordination for your day.'],['♫','Parties','Birthdays, private parties and celebrations.'],['✦','Corporate','Meetings, launches and company events.']]],
+ agency: ['Ideas into measurable impact.', 'A practical creative and technology partner for brands ready to grow.', 'Start a project', 'Our services', 'Flexible services for your next stage of growth.', [['◈','Brand & design','Identity, graphics and digital design.'],['⌘','Web development','Modern websites and digital products.'],['↗','Marketing','Campaigns and content for growth.']]],
+ ngo: ['Small actions. Meaningful change.', 'Learn about our mission, community work and ways to support the cause.', 'Support our work', 'Our focus areas', 'See where your support and participation can make a difference.', [['♡','Community','Support people and communities.'],['✚','Outreach','Bring essential services closer to those in need.'],['♧','Environment','Encourage responsible environmental action.']]],
+ blog: ['Stories, ideas and useful updates.', 'Read the latest articles, guides and perspectives from our team.', 'Read latest posts', 'Latest articles', 'Explore recent stories and useful resources.', [['▧','Guides','Practical explainers and how-to articles.'],['✎','Stories','Ideas, experiences and opinions.'],['◷','Updates','News and announcements.']]],
+ landing: ['One clear message. One next step.', 'Introduce your product or service with a focused page designed to explain its value.', 'Get started', 'Why choose us', 'Show visitors the most important reasons to take action.', [['✦','Simple','Explain the main benefit clearly.'],['◈','Useful','Highlight what makes the offer valuable.'],['↗','Actionable','Give visitors a clear next step.']]]
+};
+Object.entries(nicheTemplates).forEach(([key, data]) => {
+  const [heroTitle, heroBody, cta, featureTitle, featureBody, items] = data;
+  defaults[key] = clone(defaults.business);
+  defaults[key][0].title = key === 'ngo' ? 'COMMUNITY' : key.toUpperCase();
+  defaults[key][0].body = 'Home   Services   About   Contact';
+  defaults[key][1] = {type:'hero', title:heroTitle, body:heroBody, cta};
+  defaults[key][2] = {type:'features', title:featureTitle, body:featureBody, items:clone(items)};
+  defaults[key][3] = {type:'about', title:'About us', body:'Add your story, experience, location and the details visitors need to know.'};
+  defaults[key][4] = {type:'contact', title:'Get in touch', body:'Add your contact details, location, opening hours and enquiry information here.', cta:'Contact us'};
+  defaults[key][5] = {type:'footer', title:'© 2026 ' + key.toUpperCase(), body:'All rights reserved.'};
+});
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function toast(msg){let t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(window._toast);window._toast=setTimeout(()=>t.style.display='none',2300)}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function loadTemplate(t){template=t;sections=clone(defaults[t]);selected=1;document.querySelectorAll('.template').forEach(b=>b.classList.toggle('active',b.dataset.template===t));render()}
+function render(){
+ $('#sectionCount').textContent='('+sections.length+')';
+ $('#sectionList').innerHTML=sections.map((s,i)=>`<div class="section-item ${i===selected?'active':''}" data-i="${i}"><span class="section-name">${esc(s.type.toUpperCase())} · ${esc(s.title||'Untitled')}</span><button data-act="up" data-i="${i}" aria-label="Move up">↑</button><button data-act="down" data-i="${i}" aria-label="Move down">↓</button></div>`).join('');
+ $('#sectionList').querySelectorAll('.section-name').forEach(el=>el.addEventListener('click',()=>{selected=+el.parentElement.dataset.i;render()}));
+ $('#sectionList').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>move(+b.dataset.i,b.dataset.act==='up'?-1:1)));
+ renderSite();renderEditor();
+}
+function move(i,d){let j=i+d;if(j<0||j>=sections.length)return;[sections[i],sections[j]]=[sections[j],sections[i]];selected=j;render()}
+function renderSite(){
+ const site=$('#site');site.innerHTML=sections.map((s,i)=>{
+ let cls=i===selected?'selected':'';
+ let inner='';
+ if(s.type==='nav')inner=`<div class="site-nav"><strong>${esc(s.title)}</strong><span>${esc(s.body)}</span></div>`;
+ if(s.type==='hero')inner=`<div class="hero"><h1>${esc(s.title)}</h1><p>${esc(s.body)}</p><a class="site-cta" href="#contact">${esc(s.cta||'Learn more')}</a></div>`;
+ if(s.type==='features')inner=`<div class="features"><h2>${esc(s.title)}</h2><p style="text-align:center;color:#626575;margin:-12px 0 24px">${esc(s.body)}</p><div class="cards">${(s.items||[]).map(it=>`<div class="feature"><div class="ico">${esc(it[0])}</div><h3>${esc(it[1])}</h3><p>${esc(it[2])}</p></div>`).join('')}</div></div>`;
+ if(s.type==='about')inner=`<div class="about"><div class="about-inner"><h2>${esc(s.title)}</h2><p>${esc(s.body)}</p></div></div>`;
+ if(s.type==='contact')inner=`<div class="contact" id="contact"><h2>${esc(s.title)}</h2><p>${esc(s.body)}</p><a class="site-cta" href="mailto:hello@example.com">${esc(s.cta||'Contact')}</a></div>`;
+ if(s.type==='footer')inner=`<div class="footer"><strong>${esc(s.title)}</strong><div>${esc(s.body)}</div></div>`;
+ return `<section class="site-section ${cls}" data-index="${i}">${inner}<span class="select-tag">EDIT SECTION</span></section>`;
+ }).join('');
+ site.querySelectorAll('.site-section').forEach(el=>el.addEventListener('click',()=>{selected=+el.dataset.index;render()}));
+}
+function renderEditor(){
+ const s=sections[selected];if(!s){$('#editorTitle').textContent='No section selected';$('#editorFields').innerHTML='<p class="muted">Add a section to start editing.</p>';return}
+ $('#editorTitle').textContent=s.type[0].toUpperCase()+s.type.slice(1)+' section';
+ let fields=`<label>Heading / title</label><input id="editTitle" value="${esc(s.title||'')}"><label>Text / description</label><textarea id="editBody">${esc(s.body||'')}</textarea>`;
+ if(s.cta!==undefined)fields+=`<label>Button text</label><input id="editCta" value="${esc(s.cta)}">`;
+ if(s.items)fields+=`<label>Feature cards (one per line: icon | title | description)</label><textarea id="editItems">${s.items.map(a=>a.join(' | ')).join('\n')}</textarea>`;
+ $('#editorFields').innerHTML=fields;
+ ['editTitle','editBody','editCta','editItems'].forEach(id=>{let el=document.getElementById(id);if(el)el.addEventListener('input',()=>{let x=sections[selected];if(id==='editTitle')x.title=el.value;if(id==='editBody')x.body=el.value;if(id==='editCta')x.cta=el.value;if(id==='editItems')x.items=el.value.split('\n').filter(Boolean).map(line=>{let a=line.split('|').map(v=>v.trim());return [a[0]||'✦',a[1]||'Feature',a.slice(2).join(' | ')||'Add a short description.']});renderSite();$('#sectionList').querySelectorAll('.section-name')[selected].textContent=x.type.toUpperCase()+' · '+(x.title||'Untitled')})});
+}
+function generate(){
+ let p=$('#prompt').value.trim(),name=$('#siteName').value.trim()||'MY BRAND',type=$('#siteType').value;
+ const typeMap = {'Portfolio':'portfolio','Restaurant':'restaurant','Online Store':'store','Education':'education','Real Estate':'realestate','Fitness':'fitness','Beauty & Salon':'beauty','Travel & Hotel':'travel','Events':'events','Digital Agency':'agency','NGO & Charity':'ngo','Blog':'blog','Landing Page':'landing'};
+ let t=typeMap[type]||'business';
+ loadTemplate(t);sections.forEach(s=>{if(s.type==='nav')s.title=name;if(s.type==='footer')s.title='© 2026 '+name;if(s.type==='hero')s.title=p?`Welcome to ${name}`:'Build something remarkable.';if(s.type==='hero'&&p)s.body=p;if(s.type==='about')s.title='About '+name});selected=1;render();toast('आपकी वेबसाइट का editable draft तैयार है।');
+}
+function addSection(){
+ let t=$('#addSectionType').value,base=defaults.business.find(s=>s.type===t);
+ let item=base?clone(base):{type:t,title:'New '+t,body:'Add your content here.'};
+ if(t==='hero')item={type:'hero',title:'Your headline here',body:'Describe what makes your business special.',cta:'Get started'};
+ sections.splice(selected+1,0,item);selected++;render();
+}
+function exportHtml(){
+ let content=sections.map(s=>{
+ if(s.type==='nav')return `<nav><b>${esc(s.title)}</b><span>${esc(s.body)}</span></nav>`;
+ if(s.type==='hero')return `<header><h1>${esc(s.title)}</h1><p>${esc(s.body)}</p><a href="#contact">${esc(s.cta||'Learn more')}</a></header>`;
+ if(s.type==='features')return `<section><h2>${esc(s.title)}</h2><p>${esc(s.body)}</p><div class="cards">${(s.items||[]).map(x=>`<article><h3>${esc(x[0])} ${esc(x[1])}</h3><p>${esc(x[2])}</p></article>`).join('')}</div></section>`;
+ if(s.type==='about')return `<section class="about"><h2>${esc(s.title)}</h2><p>${esc(s.body)}</p></section>`;
+ if(s.type==='contact')return `<section id="contact"><h2>${esc(s.title)}</h2><p>${esc(s.body)}</p><a href="mailto:hello@example.com">${esc(s.cta||'Contact')}</a></section>`;
+ if(s.type==='footer')return `<footer>${esc(s.title)}<br>${esc(s.body)}</footer>`;return '';
+ }).join('\n');
+ let out=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc($('#siteName').value||'My Website')}</title><style>*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui;color:#191a24}nav{padding:18px 7%;display:flex;justify-content:space-between;border-bottom:1px solid #eee}nav span{color:#666}header{padding:90px 7%;text-align:center;background:linear-gradient(135deg,#14172a,#34265c);color:white}header h1{font-size:clamp(34px,6vw,64px);line-height:1.1}header p{max-width:650px;margin:20px auto 30px;color:#ddd}a{display:inline-block;background:#a99cff;color:#171329;padding:12px 20px;border-radius:30px;text-decoration:none;font-weight:700}section{padding:55px 7%;text-align:center}h2{font-size:30px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;text-align:left;margin-top:25px}article{border:1px solid #e5e5eb;border-radius:12px;padding:20px}.about{background:#f1f0f7}footer{background:#11131b;color:#ddd;text-align:center;padding:25px}@media(max-width:600px){.cards{grid-template-columns:1fr}nav span{font-size:12px}header{padding:65px 6%}}</style><body>${content}</body></html>`;
+ let blob=new Blob([out],{type:'text/html'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='my-website.html';a.click();URL.revokeObjectURL(url);toast('HTML फाइल export हो गई।');
+}
+function save(){localStorage.setItem('blacksite-project',JSON.stringify({sections,selected,template,name:$('#siteName').value,prompt:$('#prompt').value}));toast('Project इस फोन के browser में save हो गया।')}
+function restore(){try{let d=JSON.parse(localStorage.getItem('blacksite-project'));if(d){sections=d.sections;selected=d.selected||0;template=d.template||'business';$('#siteName').value=d.name||'NOVA STUDIO';$('#prompt').value=d.prompt||'';document.querySelectorAll('.template').forEach(b=>b.classList.toggle('active',b.dataset.template===template));render();return true}}catch(e){}return false}
+document.querySelectorAll('.template').forEach(b=>b.addEventListener('click',()=>loadTemplate(b.dataset.template)));
+$('#generateBtn').addEventListener('click',generate);$('#addSectionBtn').addEventListener('click',addSection);$('#exportBtn').addEventListener('click',exportHtml);$('#saveBtn').addEventListener('click',save);$('#saveBtn2').addEventListener('click',save);
+$('#duplicateBtn').addEventListener('click',()=>{if(!sections[selected])return;sections.splice(selected+1,0,clone(sections[selected]));selected++;render()});
+$('#deleteBtn').addEventListener('click',()=>{if(sections.length<=1){toast('कम से कम एक section रखें।');return}sections.splice(selected,1);selected=Math.max(0,selected-1);render()});
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));$('#canvas').style.maxWidth=view==='mobile'?'390px':'none';$('#canvas').style.margin=view==='mobile'?'auto':'0'}));
+if(!restore())loadTemplate('business');
+</script>
+</body>
+</html>

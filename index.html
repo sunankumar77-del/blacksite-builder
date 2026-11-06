@@ -21,16 +21,16 @@ button{cursor:pointer}
 .mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#9c8cff,#42d7c3);display:grid;place-items:center;color:#08090e;font-weight:950;font-size:16px}
 .pill{font-size:10px;color:#b9b2ff;border:1px solid #4a426e;border-radius:30px;padding:3px 8px}
 .top-actions{display:flex;align-items:center;gap:10px}
-.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:8px 14px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:0.2s}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:8px 14px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#090912}
 .btn.danger{background:transparent;border-color:var(--danger);color:var(--danger)}
 .btn.ghost{background:transparent}
 .btn.small{padding:6px 10px;font-size:12px}
 .btn:active{transform:scale(.97)}
 
-/* User Profile & Auth Elements */
-.user-avatar-badge{display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);padding:4px 10px;border-radius:30px;cursor:pointer}
-.user-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#8b7cff,#39d6c2);display:grid;place-items:center;color:#08090e;font-weight:800;font-size:12px}
+/* User Profile Badge */
+.user-avatar-badge{display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);padding:4px 12px;border-radius:30px;cursor:pointer}
+.user-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#8b7cff,#39d6c2);display:grid;place-items:center;color:#08090e;font-weight:800;font-size:11px}
 
 /* Layout */
 .layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:18px;padding-top:16px}
@@ -58,7 +58,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .section-name{flex:1;min-width:0;font-size:12px;font-weight:600;cursor:pointer}
 .section-item button{padding:4px 8px;border-radius:6px;border:1px solid var(--line);background:#171a24;color:var(--text)}
 
-/* Canvas & Preview */
+/* Canvas */
 .preview-wrap{min-width:0}
 .preview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
 .tabs{display:flex;gap:4px;background:#0a0c12;padding:4px;border:1px solid var(--line);border-radius:10px}
@@ -71,15 +71,15 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .site-section:hover .select-tag{opacity:1}
 .select-tag{position:absolute;top:8px;right:10px;background:#8b7cff;color:#08090e;padding:4px 7px;border-radius:6px;font-size:10px;opacity:0;cursor:pointer}
 
-/* Site Elements */
+/* Inner Site Output */
 .hero{background:linear-gradient(135deg,#14172a,#262044);color:white;text-align:center;padding:70px 7%}
-.hero h1{font-size:clamp(28px,5vw,52px);max-width:750px;margin:0 auto 12px}
+.hero h1{font-size:clamp(26px,5vw,50px);max-width:750px;margin:0 auto 12px;color:#fff}
 .hero p{color:#d0cee0;max-width:560px;margin:0 auto 20px;font-size:15px}
 .site-cta{display:inline-block;background:#a99cff;color:#121020;text-decoration:none;border-radius:30px;padding:11px 22px;font-weight:700}
-.site-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 7%;background:#fff;border-bottom:1px solid #eee}
-.features{background:#fff}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.site-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 7%;background:#fff;border-bottom:1px solid #eee;color:#171923}
+.features{background:#fff;color:#171923}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .feature{border:1px solid #e7e7ed;border-radius:12px;padding:16px}.feature h3{font-size:15px;margin:8px 0 4px}
-.about{background:#f0eff7;text-align:center}.contact{background:#fff;text-align:center}
+.about{background:#f0eff7;text-align:center;color:#171923}.contact{background:#fff;text-align:center;color:#171923}
 .footer{background:#11131b;color:#c5c7d2;text-align:center;padding:22px;font-size:12px}
 .editor{margin-top:16px}.editor-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 
@@ -103,11 +103,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
     <div class="top-actions">
       <button class="btn ghost desktop" id="saveBtn">Save</button>
       <button class="btn primary" id="exportBtn">Export HTML ↗</button>
-      
-      <!-- Login & Profile Container -->
-      <div id="authContainer">
-        <button class="btn primary" id="openAuthModalBtn">Login / Signup</button>
-      </div>
+      <div id="authContainer"></div>
     </div>
   </header>
 
@@ -117,7 +113,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
         <div class="eyebrow">Instant AI generator</div>
         <h1>Build website in seconds</h1>
         <label for="prompt">वेबसाइट का उद्देश्य और डिटेल्स</label>
-        <textarea id="prompt" placeholder="जैसे: एक प्रीमियम फिटनेस जिम, जिसमें वर्कआउट प्लान, ट्रेनर लिस्ट, टाइमिंग और WhatsApp बुकिंग हो।"></textarea>
+        <textarea id="prompt" placeholder="जैसे: एक प्रीमियम फिटनेस जिम, जिसमें वर्कआउट प्लान, ट्रेनर लिस्ट और WhatsApp बुकिंग हो।"></textarea>
         
         <div class="row">
           <div>
@@ -127,9 +123,12 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
           <div>
             <label for="siteType">कैटेगरी</label>
             <select id="siteType">
-              <option>Fitness</option><option>Restaurant</option><option>Business</option>
-              <option>Portfolio</option><option>Online Store</option><option>Education</option>
-              <option>Real Estate</option><option>Events</option><option>Digital Agency</option>
+              <option value="fitness">Fitness</option>
+              <option value="restaurant">Restaurant</option>
+              <option value="business">Business</option>
+              <option value="portfolio">Portfolio</option>
+              <option value="store">Online Store</option>
+              <option value="education">Education</option>
             </select>
           </div>
         </div>
@@ -191,14 +190,14 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
   </div>
 </div>
 
-<!-- Modal: Auth (Login/Signup) -->
+<!-- Modal: Auth -->
 <div class="modal-overlay" id="authModal">
   <div class="modal-card">
     <div class="modal-head">
       <h3 style="margin:0" id="authModalTitle">Login to BLACKSITE</h3>
-      <button class="btn small ghost" onclick="toggleModal('authModal',false)">✕</button>
+      <button class="btn small ghost" id="closeAuthBtn">✕</button>
     </div>
-    <form id="authForm" onsubmit="handleAuth(event)">
+    <form id="authForm">
       <label for="authEmail">Email Address</label>
       <input type="email" id="authEmail" required placeholder="you@domain.com">
       
@@ -215,17 +214,17 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
     
     <p class="hint" style="text-align:center;margin-top:12px">
       <span id="authToggleText">Don't have an account?</span> 
-      <a href="#" style="color:var(--accent)" onclick="switchAuthMode(event)" id="authToggleLink">Sign Up</a>
+      <a href="#" style="color:var(--accent)" id="authToggleLink">Sign Up</a>
     </p>
   </div>
 </div>
 
-<!-- Modal: User Profile -->
+<!-- Modal: Profile -->
 <div class="modal-overlay" id="profileModal">
   <div class="modal-card">
     <div class="modal-head">
       <h3 style="margin:0">Creator Profile</h3>
-      <button class="btn small ghost" onclick="toggleModal('profileModal',false)">✕</button>
+      <button class="btn small ghost" id="closeProfileBtn">✕</button>
     </div>
     <div style="text-align:center;padding:10px 0 16px">
       <div class="user-avatar" style="width:58px;height:58px;margin:0 auto 10px;font-size:22px" id="profileBigAvatar">U</div>
@@ -236,11 +235,11 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
     <div style="background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0">
       <div class="row">
         <div><span class="muted" style="font-size:11px">Tier:</span><br><b>PRO Account</b></div>
-        <div><span class="muted" style="font-size:11px">Saved Sites:</span><br><b id="profileSitesCount">1 Active</b></div>
+        <div><span class="muted" style="font-size:11px">Status:</span><br><b style="color:var(--success)">Active & Synced</b></div>
       </div>
     </div>
     
-    <button class="btn danger" style="width:100%;margin-top:14px" onclick="logoutUser()">Log Out</button>
+    <button class="btn danger" style="width:100%;margin-top:14px" id="logoutBtn">Log Out</button>
   </div>
 </div>
 
@@ -276,92 +275,65 @@ const defaults={
   {type:'about',title:'Raw & Untouched',body:'We extract daily to retain maximum enzymes and hydration value.'},
   {type:'contact',title:'Order Counter',body:'Open 7 AM - 10 PM. Takeaway & local express delivery.',cta:'Order Delivery'},
   {type:'footer',title:'© 2026 OASIS JUICE',body:'Freshly Pressed.'}
- ]
-};
-
-defaults.portfolio = [
+ ],
+ portfolio:[
   {type:'nav',title:'ALEX CARTER',body:'Projects · Stack · Bio · Contact'},
   {type:'hero',title:'Product Engineer & Creator',body:'Building scalable web interfaces, mobile apps, and robust micro-tools.',cta:'View Projects'},
   {type:'features',title:'Key Projects',body:'Production applications with proven user traction.',items:[['01','NexusChat','Realtime P2P WebRTC video chat client.'],['02','Blacksite UI','Universal low-code responsive canvas editor.'],['03','Engine V','Automated build pipeline utility.']]},
   {type:'about',title:'Engineering Philosophy',body:'Clean architecture, fast render times, and zero framework bloat.'},
   {type:'contact',title:'Let’s Build',body:'Open for select consulting contracts and engineering sprints.',cta:'Get in touch'},
   {type:'footer',title:'© 2026 ALEX CARTER',body:'Full Stack Craftsman.'}
-];
-defaults.store = defaults.business;
-defaults.education = defaults.business;
+ ],
+ store:[
+  {type:'nav',title:'MINIMAL STORE',body:'Catalog · Deals · About · Support'},
+  {type:'hero',title:'Essential Goods Delivered.',body:'Carefully crafted items built for durability, utility, and timeless simplicity.',cta:'Shop Catalog'},
+  {type:'features',title:'Top Picks',body:'Community rated premium essentials.',items:[['◇','Series 1','Industrial grade pocket gear.'],['◈','Series 2','Minimalist everyday carry kit.'],['✦','Series 3','Smart accessories engineered for speed.']]},
+  {type:'about',title:'Crafted Standard',body:'We source clean materials and ensure zero unnecessary packaging.'},
+  {type:'contact',title:'Customer Desk',body:'Direct shipping across all pin codes. 24-hour return assurance.',cta:'Contact Support'},
+  {type:'footer',title:'© 2026 MINIMAL STORE',body:'Direct to Consumer.'}
+ ],
+ education:[
+  {type:'nav',title:'ACADEMY ONE',body:'Courses · Mentors · Syllabus · Enroll'},
+  {type:'hero',title:'Master High-Value Skills.',body:'Project-based curricula in software engineering, interface design, and product management.',cta:'Explore Courses'},
+  {type:'features',title:'Core Paths',body:'Practical hands-on training with industry mentorship.',items:[['💻','Full Stack Web','React, Node.js, and Modern Databases.'],['📱','App Architecture','Cross-platform Flutter & Python tools.'],['🚀','System Design','Realtime scaling and cloud deployment.']]},
+  {type:'about',title:'Practical Learning',body:'Learn by shipping production-ready code with active peer code reviews.'},
+  {type:'contact',title:'Enrollment Office',body:'Next batch registration closes this Sunday. Talk to a counselor.',cta:'Apply Now'},
+  {type:'footer',title:'© 2026 ACADEMY ONE',body:'Learn by doing.'}
+ ]
+};
 
 function clone(x){return JSON.parse(JSON.stringify(x))}
 function toast(m){let t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',2400)}
 function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
-/* Auth Logic */
+/* Auth System */
 function toggleModal(id,show){$('#'+id).style.display=show?'grid':'none'}
-function switchAuthMode(e){
+
+function updateAuthUI(){
+  const box=$('#authContainer');
+  if(currentUser){
+    const initial=currentUser.name.charAt(0).toUpperCase();
+    box.innerHTML=`<div class="user-avatar-badge" id="openProfileBadge">
+      <div class="user-avatar">${initial}</div>
+      <span style="font-weight:600;font-size:12px">${esc(currentUser.name)}</span>
+    </div>`;
+    $('#openProfileBadge').onclick=()=>toggleModal('profileModal',true);
+    $('#profileNameDisplay').textContent=currentUser.name;
+    $('#profileEmailDisplay').textContent=currentUser.email;
+    $('#profileBigAvatar').textContent=initial;
+  }else{
+    box.innerHTML=`<button class="btn primary small" id="openLoginBtn">Login / Signup</button>`;
+    $('#openLoginBtn').onclick=()=>toggleModal('authModal',true);
+  }
+}
+
+$('#closeAuthBtn').onclick=()=>toggleModal('authModal',false);
+$('#closeProfileBtn').onclick=()=>toggleModal('profileModal',false);
+
+$('#authToggleLink').onclick=(e)=>{
   e.preventDefault();
   authMode=authMode==='login'?'signup':'login';
   $('#authModalTitle').textContent=authMode==='login'?'Login to BLACKSITE':'Create Account';
   $('#authSubmitBtn').textContent=authMode==='login'?'Continue':'Sign Up Now';
   $('#authNameField').style.display=authMode==='login'?'none':'block';
-  $('#authToggleText').textContent=authMode==='login'?"Don't have an account?":"Already have an account?";
-  $('#authToggleLink').textContent=authMode==='login'?'Sign Up':'Log In';
-}
-function handleAuth(e){
-  e.preventDefault();
-  const email=$('#authEmail').value.trim();
-  const name=authMode==='signup'?$('#authName').value.trim():email.split('@')[0];
-  currentUser={email,name:name||'Creator',id:'usr_'+Date.now()};
-  localStorage.setItem('blacksite_user',JSON.stringify(currentUser));
-  toggleModal('authModal',false);
-  updateAuthUI();
-  toast('Welcome, '+currentUser.name+'!');
-}
-function logoutUser(){
-  currentUser=null;
-  localStorage.removeItem('blacksite_user');
-  toggleModal('profileModal',false);
-  updateAuthUI();
-  toast('Logged out successfully.');
-}
-function updateAuthUI(){
-  const box=$('#authContainer');
-  if(currentUser){
-    const initial=currentUser.name.charAt(0).toUpperCase();
-    box.innerHTML=`<div class="user-avatar-badge" onclick="toggleModal('profileModal',true)">
-      <div class="user-avatar">${initial}</div>
-      <span style="font-weight:600;font-size:12px">${esc(currentUser.name)}</span>
-    </div>`;
-    $('#profileNameDisplay').textContent=currentUser.name;
-    $('#profileEmailDisplay').textContent=currentUser.email;
-    $('#profileBigAvatar').textContent=initial;
-  }else{
-    box.innerHTML=`<button class="btn primary small" onclick="toggleModal('authModal',true)">Login / Signup</button>`;
-  }
-}
-
-/* Site Builder Rendering */
-function loadTemplate(t){
-  template=defaults[t]?t:'business';
-  sections=clone(defaults[template]);
-  selected=1;
-  document.querySelectorAll('.template').forEach(b=>b.classList.toggle('active',b.dataset.template===t));
-  render();
-}
-function render(){
-  $('#sectionCount').textContent='('+sections.length+')';
-  $('#sectionList').innerHTML=sections.map((s,i)=>`
-    <div class="section-item ${i===selected?'active':''}">
-      <span class="section-name" onclick="selectSection(${i})">${esc(s.type.toUpperCase())} · ${esc(s.title||'Untitled')}</span>
-      <button onclick="move(${i},-1)">↑</button>
-      <button onclick="move(${i},1)">↓</button>
-    </div>
-  `).join('');
-  renderSite();
-  renderEditor();
-}
-function selectSection(i){selected=i;render()}
-function move(i,d){
-  let j=i+d;if(j<0||j>=sections.length)return;
-  [sections[i],sections[j]]=[sections[j],sections[i]];
-  selected=j;render();
-}
-function renderSit
+  $('#authToggleText'
